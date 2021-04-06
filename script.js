@@ -7,28 +7,39 @@ function computerPlay() {
     return random;
 }
 
+// Declares variables to be used within function.
+let playerSelection;
+let computerSelection;
+
 // Function determines if player's input wins against computer.
 function playRound(playerSelection, computerSelection) {
+    playerSelection = prompt('please enter choice: rock, paper, scissor').toLowerCase();
+    computerSelection = computerPlay();
+
     if (playerSelection == 'rock' && computerSelection == 'paper') {
-        return alert('You lose! Paper beats Rock!');
+        return console.log('You lose! Paper beats Rock!');
     } else if (playerSelection == 'rock' && computerSelection == 'scissor') {
-        return alert('You Win! Rock beats Scissors!');
+        return console.log('You Win! Rock beats Scissors!');
     } else if (playerSelection == 'paper' && computerSelection == 'rock') {
-        return alert('You Win! Paper beats Rock!');
+        return console.log('You Win! Paper beats Rock!');
     } else if (playerSelection == 'paper' && computerSelection == 'scissor') {
-        return alert('You lose! Scissors beats Paper!');
+        return console.log('You lose! Scissors beats Paper!');
     } else if (playerSelection == 'scissor' && computerSelection == 'rock') {
-        return alert('You lose! Rock beats Scissors');
+        return console.log('You lose! Rock beats Scissors');
     } else if (playerSelection == 'scissor' && computerSelection == 'paper') {
-        return alert('You Win! Scissors beat paper!');
+        return console.log('You Win! Scissors beat Paper!');
     } else if (playerSelection == computerSelection) {
-        return alert('Tie! You chose ' + playerSelection + ' and the computer chose ' + computerSelection + ' too!');
+        return console.log('Tie! You chose ' + playerSelection.toUpperCase() + ' and the computer chose ' + computerSelection.toUpperCase() + ' too!');
     } else {
-        return alert('You can\'t enter that! You have to enter rock, paper, or scissor to play the game!')
+        return console.log('You can\'t enter that! You have to enter rock, paper, or scissor to play the game!')
     }
 }
 
-// Player's choice determines results.
-let playerSelection = prompt('please enter choice: rock, paper, scissor').toLowerCase();
-let computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+// New Function that plays 5 rounds.
+function game() {
+    for (let i = 0; i < 5; i++) {
+        playRound(playerSelection, computerSelection);
+    }
+}
+
+console.log(game());
