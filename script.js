@@ -8,38 +8,55 @@ function computerPlay() {
 }
 
 // Declares variables to be used within function.
+const result = document.querySelector('#result');
+result.style.backgroundColor = 'red';
+const playerRecordScore = document.querySelector('#playerScore');
+const computerRecordScore = document.querySelector('#computerScore');
+const currentScore = document.querySelector('#score');
 let playerSelection;
 let computerSelection;
+let playerScore = 0;
+let computerScore = 0;
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => button.addEventListener('click', playRound));
 
 // Function determines if player's input wins against computer.
 function playRound(playerSelection, computerSelection) {
-    playerSelection = prompt('please enter choice: rock, paper, scissor').toLowerCase();
+    playerSelection = this.id;
     computerSelection = computerPlay();
+    game();
 
-    if (playerSelection == 'rock' && computerSelection == 'paper') {
-        return console.log('You lose! Paper beats Rock!');
-    } else if (playerSelection == 'rock' && computerSelection == 'scissor') {
-        return console.log('You Win! Rock beats Scissors!');
-    } else if (playerSelection == 'paper' && computerSelection == 'rock') {
-        return console.log('You Win! Paper beats Rock!');
-    } else if (playerSelection == 'paper' && computerSelection == 'scissor') {
-        return console.log('You lose! Scissors beats Paper!');
-    } else if (playerSelection == 'scissor' && computerSelection == 'rock') {
-        return console.log('You lose! Rock beats Scissors');
-    } else if (playerSelection == 'scissor' && computerSelection == 'paper') {
-        return console.log('You Win! Scissors beat Paper!');
+    if (playerSelection == 'rock' && computerSelection == 'paper' ||
+        playerSelection == 'paper' && computerSelection == 'scissor' ||
+        playerSelection == 'scissor' && computerSelection == 'rock') {
+        currentScore.textContent = 'You lose! ' + computerSelection + ' beats ' + playerSelection + '!';
+        computerScore++;
+    } else if (playerSelection == 'rock' && computerSelection == 'scissor' ||
+        playerSelection == 'paper' && computerSelection == 'rock' ||
+        playerSelection == 'scissor' && computerSelection =='paper') {
+        currentScore.textContent = 'You Win! ' + playerSelection + ' beats ' + computerSelection + '!';
+        playerScore++;
     } else if (playerSelection == computerSelection) {
-        return console.log('Tie! You chose ' + playerSelection.toUpperCase() + ' and the computer chose ' + computerSelection.toUpperCase() + ' too!');
+        currentScore.textContent = 'Tie! You chose ' + playerSelection.toUpperCase() + ' and the computer chose ' + computerSelection.toUpperCase() + ' too!';
     } else {
-        return console.log('You can\'t enter that! You have to enter rock, paper, or scissor to play the game!')
+        console.log('You can\'t enter that! You have to enter rock, paper, or scissor to play the game!')
     }
 }
 
 // New Function that plays 5 rounds.
 function game() {
-    for (let i = 0; i < 5; i++) {
-        playRound(playerSelection, computerSelection);
+    for (let i = 0; i < 100; i++) {
+        playerRecordScore.textContent = 'Your score is ' + playerScore + '!';
+        computerRecordScore.textContent = 'Computer score is ' + computerScore + '!';
+        if (playerScore === 5 || computerScore === 5) {
+            break;
+        }
     }
+    if (playerScore === 5) {
+        result.textContent = 'You beat the computer!';
+        alert('You have won! Please refresh game to play again!');
+    } else if (computerScore === 5) {
+        result.textContent = 'The computer beat you!';
+        alert('You have lost! Please refresh game to play again!');
+    } 
 }
-
-console.log(game());
